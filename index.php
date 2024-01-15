@@ -49,29 +49,63 @@ $hotels = [
 
 ];
 
-
-
-
 ?>
 
-<?php foreach ($hotels as $hotel) { ?>
+<!DOCTYPE html>
+<html lang="en">
 
-<p>
-    <?php echo $hotel['name'] . ': ' . $hotel['description']; ?>
-</p>
-<p>
-    <?php if ($hotel['parking'] === true) {
-            echo 'Parcheggio disponibile: si';
-        } else {
-            echo 'Parcheggio disponibile: no';
-        } ?>
-</p>
-<p>
-    <?php echo 'Voto: ' . ($hotel['vote']) ?>
-</p>
-<p>
-    <?php echo 'Distanza dal centro: ' . ($hotel['distance_to_center']) . 'km' ?>
-</p>
-<hr>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotels</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-<?php } ?>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+            <div class="container-fluid">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="" methods="GET">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Parking</th>
+                    <th scope="col">Vote</th>
+                    <th scope="col">Distance to center</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($hotels as $hotel) { ?>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td> <?php echo $hotel['name'] ?></td>
+                        <td> <?php echo $hotel['description'] ?></td>
+                        <td> <?php if ($hotel['parking'] === true) {
+                                    echo 'Parcheggio disponibile: si';
+                                } else {
+                                    echo 'Parcheggio disponibile: no';
+                                } ?></td>
+                        <td> <?php echo $hotel['vote'] ?></td>
+                        <td> <?php echo $hotel['distance_to_center'] . ' km' ?></td>
+
+
+                    </tr>
+            </tbody>
+        <?php } ?>
+        </table>
+
+    </main>
+</body>
+
+</html>

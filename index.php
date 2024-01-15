@@ -49,4 +49,29 @@ $hotels = [
 
 ];
 
+
+
+
 ?>
+
+<?php foreach ($hotels as $hotel) { ?>
+
+<p>
+    <?php echo $hotel['name'] . ': ' . $hotel['description']; ?>
+</p>
+<p>
+    <?php if ($hotel['parking'] === true) {
+            echo 'Parcheggio disponibile: si';
+        } else {
+            echo 'Parcheggio disponibile: no';
+        } ?>
+</p>
+<p>
+    <?php echo 'Voto: ' . ($hotel['vote']) ?>
+</p>
+<p>
+    <?php echo 'Distanza dal centro: ' . ($hotel['distance_to_center']) . 'km' ?>
+</p>
+<hr>
+
+<?php } ?>

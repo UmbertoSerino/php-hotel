@@ -46,29 +46,36 @@ $hotels = [
         'vote' => 2,
         'distance_to_center' => 50
     ],
-
 ];
+// se sei settato e sei uguale ad 1 allora true, senno' false
+$parkingFilter = isset($_GET['parking']) && $_GET['parking'] === 1 ? true : false;
 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotels</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="bg-dark">
     <header>
         <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
             <div class="container-fluid">
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="" methods="GET">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                <form class="d-flex" action="./index.php" method="GET">
+                    <div class="mb-3 form-check w-100">
+                        <select class="form-select mb-2" aria-label="Default select example" id="parking" name="parking">
+                            <option selected value="2">Select parking</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary ms-auto">Submit</button>
+                    </div>
                 </form>
             </div>
         </nav>
@@ -86,25 +93,30 @@ $hotels = [
                 </tr>
             </thead>
             <tbody>
+                <!-- ci creiamo un foreach per inserire i dati -->
                 <?php foreach ($hotels as $hotel) { ?>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td> <?php echo $hotel['name'] ?></td>
-                        <td> <?php echo $hotel['description'] ?></td>
-                        <td> <?php if ($hotel['parking'] === true) {
-                                    echo 'Parcheggio disponibile: si';
-                                } else {
-                                    echo 'Parcheggio disponibile: no';
-                                } ?></td>
-                        <td> <?php echo $hotel['vote'] ?></td>
-                        <td> <?php echo $hotel['distance_to_center'] . ' km' ?></td>
-
-
-                    </tr>
+                <?php if ($hotel['parking'] === false && $parkingFilter === true) {
+                    } else { ?>
+                <tr>
+                    <th scope="row">1</th>
+                    <!-- prendiamo i valori che contiene la chiave name -->
+                    <td> <?php echo $hotel['name'] ?></td>
+                    <td> <?php echo $hotel['description'] ?></td>
+                    <!-- se il valore della chiave parking è true, scrivi con parcheggio -->
+                    <td> <?php if ($hotel['parking'] === true) {
+                                        echo 'Parcheggio disponibile: si';
+                                    } else {
+                                        echo 'Parcheggio disponibile: no';
+                                    } ?></td>
+                    <td> <?php echo $hotel['vote'] ?></td>
+                    <!-- il punto serve per concatenare le due stringhe -->
+                    <td> <?php echo $hotel['distance_to_center'] . ' km' ?></td>
+                </tr>
             </tbody>
-        <?php } ?>
+            <!-- chiusura del for -->
+            <?php }
+                } ?>
         </table>
-
     </main>
 </body>
 
